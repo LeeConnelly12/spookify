@@ -4,7 +4,7 @@ use App\Models\Song;
 use Inertia\Testing\AssertableInertia as Assert;
 use function Pest\Laravel\{get};
 
-test('can all be viewed', function () {
+it('can all be viewed', function () {
     $songs = Song::factory()->count(3)->create();
 
     get('/songs')
