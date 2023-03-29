@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\PlaylistSongController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,14 @@ Route::put('/playlists/{playlist}', [PlaylistController::class, 'update'])
 
 Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])
     ->name('playlists.destroy')
+    ->middleware('auth');
+
+Route::post('/playlists/{playlist}/songs', [PlaylistSongController::class, 'store'])
+    ->name('playlists.songs.store')
+    ->middleware('auth');
+
+Route::delete('/playlists/{playlist}/songs', [PlaylistSongController::class, 'destroy'])
+    ->name('playlists.songs.destroy')
     ->middleware('auth');
 
 // Songs
