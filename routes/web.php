@@ -17,8 +17,33 @@ use App\Http\Controllers\PlaylistController;
 |
 */
 
+// Playlists
 Route::get('/playlists', [PlaylistController::class, 'index'])
     ->name('playlists')
+    ->middleware('auth');
+
+Route::get('/playlists/create', [PlaylistController::class, 'create'])
+    ->name('playlists.create')
+    ->middleware('auth');
+
+Route::post('/playlists', [PlaylistController::class, 'store'])
+    ->name('playlists.store')
+    ->middleware('auth');
+
+Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])
+    ->name('playlists.show')
+    ->middleware('auth');
+
+Route::get('/playlists/{playlist}/edit', [PlaylistController::class, 'edit'])
+    ->name('playlists.edit')
+    ->middleware('auth');
+
+Route::put('/playlists/{playlist}', [PlaylistController::class, 'update'])
+    ->name('playlists.update')
+    ->middleware('auth');
+
+Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])
+    ->name('playlists.destroy')
     ->middleware('auth');
 
 Route::get('/', function () {
