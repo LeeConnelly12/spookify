@@ -51,6 +51,8 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
+        $playlist->load('songs');
+
         return inertia('Playlists/Show', [
             'playlist' => new PlaylistResource($playlist),
         ]);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Song;
 use App\Models\Playlist;
 use App\Models\User;
 use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, get, post, put, delete};
@@ -47,7 +48,9 @@ it('can be created', function () {
 });
 
 it('can be viewed', function () {
-    $playlist = Playlist::factory()->create();
+    $playlist = Playlist::factory()
+        ->has(Song::factory()->count(3))
+        ->create();
 
     get('/playlists/'.$playlist->id)
         ->assertOk()
@@ -56,6 +59,7 @@ it('can be viewed', function () {
             ->has('playlist', fn (Assert $page) => $page
                 ->where('name', $playlist->name)
                 ->etc()
+                ->has('songs', 3)
             )
         );
 });
