@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SongController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,13 @@ Route::put('/playlists/{playlist}', [PlaylistController::class, 'update'])
 Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])
     ->name('playlists.destroy')
     ->middleware('auth');
+
+// Songs
+Route::get('/songs', [SongController::class, 'index'])
+    ->name('songs');
+
+Route::get('/songs/{song}', [SongController::class, 'show'])
+    ->name('songs.show');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
