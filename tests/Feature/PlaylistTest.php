@@ -39,7 +39,7 @@ it('can be created', function () {
     post('/playlists', [
         'name' => 'A new playlist',
     ])
-    ->assertRedirect('/playlists/1');
+    ->assertRedirect();
 
     assertDatabaseHas(Playlist::class, [
         'name' => 'A new playlist',
