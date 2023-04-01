@@ -16,6 +16,7 @@ class SongResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'year' => $this->year,
             'url' => Storage::url($this->url),
