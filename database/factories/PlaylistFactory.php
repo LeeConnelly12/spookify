@@ -19,7 +19,7 @@ class PlaylistFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => $this->faker->text(25),
+            'name' => fake()->realText(25),
         ];
     }
 }

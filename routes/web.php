@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SongController;
+use App\Models\Song;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -62,6 +63,18 @@ Route::get('/songs', [SongController::class, 'index'])
 
 Route::get('/songs/{song}', [SongController::class, 'show'])
     ->name('songs.show');
+
+Route::post('/songs', [SongController::class, 'store'])
+    ->name('songs.store')
+    ->can('create', Song::class);
+
+Route::put('/songs/{song}', [SongController::class, 'update'])
+    ->name('songs.update')
+    ->can('update', 'song');
+
+Route::delete('/songs/{song}', [SongController::class, 'destroy'])
+    ->name('songs.destroy')
+    ->can('delete', 'song');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

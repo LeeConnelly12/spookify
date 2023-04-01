@@ -21,6 +21,22 @@ class SongController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+        ]);
+
+        $request->user()->songs()->create([
+            'name' => $request->name,
+        ]);
+
+        return back();
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(Song $song)
@@ -28,5 +44,31 @@ class SongController extends Controller
         return inertia('Songs/Show', [
             'song' => new SongResource($song),
         ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Song $song)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+        ]);
+
+        $song->update([
+            'name' => $request->name,
+        ]);
+
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Request $request, Song $song)
+    {
+        $song->delete();
+
+        return to_route('songs');
     }
 }
