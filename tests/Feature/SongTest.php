@@ -2,7 +2,6 @@
 
 use App\Models\Song;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use function Pest\Laravel\{actingAs, assertDatabaseMissing, get};
 
@@ -18,7 +17,6 @@ it('can all be viewed', function () {
                     'id' => $songs->first()->id,
                     'name' => $songs->first()->name,
                     'year' => $songs->first()->year,
-                    'url' => Storage::url($songs->first()->url),
                 ])
                 ->etc()
             )

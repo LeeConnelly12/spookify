@@ -19,7 +19,7 @@ class SongResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'year' => $this->year,
-            'url' => Storage::url($this->url),
+            'url' => $this->getFirstMediaUrl('file'),
             'artist' => new UserResource($this->whenLoaded('user')),
             'small_image' => $this->getFirstMediaUrl('image', 'small'),
             'medium_image' => $this->getFirstMediaUrl('image', 'medium'),

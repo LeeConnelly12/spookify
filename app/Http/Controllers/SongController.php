@@ -48,9 +48,12 @@ class SongController extends Controller
         $song = $request->user()->songs()->create([
             'name' => $request->name,
             'year' => $request->year,
-            'url' => $request->file('file')->store('songs'),
             'duration' => FFMpeg::open($request->file('file'))->getDurationInSeconds(),
         ]);
+
+        $song
+            ->addMediaFromRequest('file')
+            ->toMediaCollection('file');
 
         $song
             ->addMediaFromRequest('image')
@@ -88,6 +91,7 @@ class SongController extends Controller
             'name' => ['required', 'string', 'max:25'],
             'year' => ['required', 'integer', 'min:0', 'max:3000'],
             'file' => [File::types('mp3')->max(5120)],
+            'image' => [File::types(['jpg', 'png'])->max(5120)],
         ]);
 
         $song->fill([
@@ -96,9 +100,17 @@ class SongController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            Storage::delete($song->url);
-            $song->url = $request->file('file')->store('songs');
             $song->duration = FFMpeg::open($request->file('file'))->getDurationInSeconds();
+
+            $song
+                ->addMediaFromRequest('file')
+                ->toMediaCollection('file');
+        }
+
+        if ($request->hasFile('image')) {
+            $song
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('image');
         }
 
         $song->save();

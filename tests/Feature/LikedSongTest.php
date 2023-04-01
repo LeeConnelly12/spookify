@@ -26,7 +26,6 @@ it('has liked songs page', function () {
                     'id' => $song->id,
                     'name' => $song->name,
                     'year' => $song->year,
-                    'url' => Storage::url($song->url),
                 ])
                 ->etc()
             )

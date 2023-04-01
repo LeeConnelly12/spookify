@@ -27,6 +27,10 @@ class Song extends Model implements HasMedia
         $this
             ->addMediaCollection('image')
             ->singleFile();
+
+        $this
+            ->addMediaCollection('file')
+            ->singleFile();
     }
 
     public function registerMediaConversions(Media $media = null): void
