@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 25);
             $table->unsignedSmallInteger('year');
             $table->string('url', 100);
+            $table->unsignedSmallInteger('duration');
             $table->timestamps();
         });
     }
