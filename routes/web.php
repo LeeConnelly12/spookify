@@ -62,6 +62,10 @@ Route::delete('/playlists/{playlist}/songs', [PlaylistSongController::class, 'de
 Route::get('/', [SongController::class, 'index'])
     ->name('songs');
 
+Route::get('/songs/create', [SongController::class, 'create'])
+    ->name('songs.create')
+    ->middleware('auth');
+
 Route::get('/songs/{song}', [SongController::class, 'show'])
     ->name('songs.show');
 
@@ -69,13 +73,17 @@ Route::post('/songs', [SongController::class, 'store'])
     ->name('songs.store')
     ->middleware('role:artist');
 
+Route::get('/songs/{song}/edit', [SongController::class, 'edit'])
+    ->name('songs.edit')
+    ->can('update', 'song');
+
 Route::put('/songs/{song}', [SongController::class, 'update'])
     ->name('songs.update')
     ->can('update', 'song');
 
 Route::delete('/songs/{song}', [SongController::class, 'destroy'])
     ->name('songs.destroy')
-    ->can('delete', 'song');
+    ->can('update', 'song');
 
 Route::get('/songs', [LikedSongController::class, 'index'])
     ->name('liked-songs')

@@ -24,15 +24,21 @@ async function unlike(song) {
   <div>songs page</div>
   <ul>
     <li v-for="song in songs" :key="song.id" class="flex gap-4">
+      <img :src="song.small_image" width="40" height="40" alt="" />
       <p>{{ song.name }}</p>
       <p>{{ song.artist.name }}</p>
-      <button
-        v-if="user"
-        @click="song.liked === false ? like(song) : unlike(song)"
-        class="px-2 bg-green-200"
-      >
-        like
-      </button>
+      <template v-if="user">
+        <button
+          v-if="song.liked === false"
+          @click="like(song)"
+          class="px-2 bg-green-200"
+        >
+          like
+        </button>
+        <button v-else @click="unlike(song)" class="px-2 bg-green-200">
+          unlike
+        </button>
+      </template>
     </li>
   </ul>
 </template>

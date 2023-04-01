@@ -14,12 +14,4 @@ class SongPolicy
     {
         return $user->id === $song->user_id;
     }
-
-    /**
-     * Determine if the given song can be deleted by the user.
-     */
-    public function delete(User $user, Song $song): bool
-    {
-        return $user->can('update', $song);
-    }
 }

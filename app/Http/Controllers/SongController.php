@@ -26,6 +26,14 @@ class SongController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return inertia('Songs/Create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -34,18 +42,21 @@ class SongController extends Controller
             'name' => ['required', 'string', 'max:25'],
             'year' => ['required', 'integer', 'min:0', 'max:3000'],
             'file' => ['required', File::types('mp3')->max(5120)],
+            'image' => ['required', File::types(['jpg', 'png'])->max(5120)],
         ]);
 
-        $path = $request->file('file')->store('songs');
-
-        $request->user()->songs()->create([
+        $song = $request->user()->songs()->create([
             'name' => $request->name,
             'year' => $request->year,
-            'url' => $path,
+            'url' => $request->file('file')->store('songs'),
             'duration' => FFMpeg::open($request->file('file'))->getDurationInSeconds(),
         ]);
 
-        return back();
+        $song
+            ->addMediaFromRequest('image')
+            ->toMediaCollection('image');
+
+        return to_route('songs.show', $song);
     }
 
     /**
@@ -54,6 +65,16 @@ class SongController extends Controller
     public function show(Song $song)
     {
         return inertia('Songs/Show', [
+            'song' => new SongResource($song),
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Song $song)
+    {
+        return inertia('Songs/Edit', [
             'song' => new SongResource($song),
         ]);
     }

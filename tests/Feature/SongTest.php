@@ -36,6 +36,33 @@ it('can be viewed', function () {
         );
 });
 
+it('has create form', function () {
+    $artist = User::factory()->create();
+    $artist->assignRole('artist');
+
+    actingAs($artist)
+        ->get('/songs/create')
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Songs/Create')
+        );
+});
+
+it('has edit form', function () {
+    $artist = User::factory()->create();
+    $artist->assignRole('artist');
+
+    $song = Song::factory()->for($artist)->create();
+
+    actingAs($artist)
+        ->get('/songs/'.$song->id.'/edit')
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Songs/Edit')
+            ->has('song')
+        );
+});
+
 it('cannot be created by a non-artist', function () {
     $user = User::factory()->create();
 
