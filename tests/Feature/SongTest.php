@@ -37,11 +37,13 @@ it('can be created by an artist', function () {
     actingAs($artist)
         ->post('/songs', [
             'name' => 'new song',
+            'year' => 2000,
         ])
         ->assertRedirect();
 
     assertDatabaseHas(Song::class, [
         'name' => 'new song',
+        'year' => 2000,
     ]);
 });
 
@@ -61,16 +63,21 @@ it('can be updated by the artist that created the song', function () {
 
     $song = Song::factory()
         ->for($artist)
-        ->create(['name' => 'old name']);
+        ->create([
+            'name' => 'old name',
+            'year' => 2000,
+        ]);
 
     actingAs($artist)
         ->put('/songs/'.$song->id, [
             'name' => 'new name',
+            'year' => 2015,
         ])
         ->assertRedirect();
 
     assertDatabaseHas(Song::class, [
         'name' => 'new name',
+        'year' => 2015,
     ]);
 });
 

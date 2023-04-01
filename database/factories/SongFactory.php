@@ -20,6 +20,7 @@ class SongFactory extends Factory
         return [
             'user_id' => User::factory(),
             'name' => fake()->realText(25),
+            'year' => fake()->numberBetween(2000, 2020),
         ];
     }
 }

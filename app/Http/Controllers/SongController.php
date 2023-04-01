@@ -27,10 +27,12 @@ class SongController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:25'],
+            'year' => ['required', 'integer', 'min:0', 'max:3000'],
         ]);
 
         $request->user()->songs()->create([
             'name' => $request->name,
+            'year' => $request->year,
         ]);
 
         return back();
@@ -53,10 +55,12 @@ class SongController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:25'],
+            'year' => ['required', 'integer', 'min:0', 'max:3000'],
         ]);
 
         $song->update([
             'name' => $request->name,
+            'year' => $request->year,
         ]);
 
         return back();
