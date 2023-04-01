@@ -55,13 +55,13 @@ it('cannot be created by a non-artist', function () {
         ->assertForbidden();
 });
 
-it('can be updated by an artist', function () {
+it('can be updated by the artist that created the song', function () {
     $artist = User::factory()->create();
     $artist->assignRole('artist');
 
-    $song = Song::factory()->create([
-        'name' => 'old name',
-    ]);
+    $song = Song::factory()
+        ->for($artist)
+        ->create(['name' => 'old name']);
 
     actingAs($artist)
         ->put('/songs/'.$song->id, [
@@ -74,21 +74,27 @@ it('can be updated by an artist', function () {
     ]);
 });
 
-it('cannot be updated by a non-artist', function () {
-    $user = User::factory()->create();
-    $song = Song::factory()->create();
+it('can only be updated by the artist that created the song', function () {
+    $artist = User::factory()->create();
+    $artist->assignRole('artist');
 
-    actingAs($user)
+    $otherArtist = User::factory()->create();
+    $otherArtist->assignRole('artist');
+
+    $song = Song::factory()->for($artist)->create();
+
+    actingAs($otherArtist)
         ->put('/songs/'.$song->id, [
             'name' => 'new name',
         ])
         ->assertForbidden();
 });
 
-it('can be deleted by an artist', function () {
+it('can be deleted by the artist that created the song', function () {
     $artist = User::factory()->create();
     $artist->assignRole('artist');
-    $song = Song::factory()->create();
+
+    $song = Song::factory()->for($artist)->create();
 
     actingAs($artist)
         ->delete('/songs/'.$song->id)
@@ -99,11 +105,16 @@ it('can be deleted by an artist', function () {
     ]);
 });
 
-it('cannot be deleted by a non-artist', function () {
-    $user = User::factory()->create();
-    $song = Song::factory()->create();
+it('can only be deleted by the artist that created the song', function () {
+    $artist = User::factory()->create();
+    $artist->assignRole('artist');
 
-    actingAs($user)
+    $otherArtist = User::factory()->create();
+    $otherArtist->assignRole('artist');
+
+    $song = Song::factory()->for($artist)->create();
+
+    actingAs($otherArtist)
         ->delete('/songs/'.$song->id)
         ->assertForbidden();
 });
