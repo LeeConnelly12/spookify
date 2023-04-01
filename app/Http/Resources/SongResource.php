@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class SongResource extends JsonResource
 {
@@ -16,6 +17,8 @@ class SongResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'year' => $this->year,
+            'url' => Storage::url($this->url),
         ];
     }
 }

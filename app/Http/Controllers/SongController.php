@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SongResource;
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\File;
 
 class SongController extends Controller
 {
@@ -28,11 +30,13 @@ class SongController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:25'],
             'year' => ['required', 'integer', 'min:0', 'max:3000'],
+            'file' => ['required', File::types('mp3')->max(5120)],
         ]);
 
         $request->user()->songs()->create([
             'name' => $request->name,
             'year' => $request->year,
+            'url' => $request->file('file')->store('songs'),
         ]);
 
         return back();
@@ -56,12 +60,20 @@ class SongController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:25'],
             'year' => ['required', 'integer', 'min:0', 'max:3000'],
+            'file' => [File::types('mp3')->max(5120)],
         ]);
 
-        $song->update([
+        $song->fill([
             'name' => $request->name,
             'year' => $request->year,
         ]);
+
+        if ($request->hasFile('file')) {
+            Storage::delete($song->url);
+            $song->url = $request->file('file')->store('songs');
+        }
+
+        $song->save();
 
         return back();
     }
