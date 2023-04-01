@@ -12,7 +12,7 @@ class SongPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create songs');
+        return $user->hasRole('artist');
     }
 
     /**
@@ -20,11 +20,7 @@ class SongPolicy
      */
     public function update(User $user, Song $song): bool
     {
-        if ($user->id !== $song->user_id) {
-            return false;
-        }
-
-        return $user->hasPermissionTo('edit songs');
+        return $user->id === $song->user_id;
     }
 
     /**
@@ -32,10 +28,6 @@ class SongPolicy
      */
     public function delete(User $user, Song $song): bool
     {
-        if ($user->id !== $song->user_id) {
-            return false;
-        }
-
-        return $user->hasPermissionTo('delete songs');
+        return $user->can('update', $song);
     }
 }
