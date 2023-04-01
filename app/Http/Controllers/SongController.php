@@ -35,13 +35,12 @@ class SongController extends Controller
         ]);
 
         $path = $request->file('file')->store('songs');
-        $seconds = 120;
 
         $request->user()->songs()->create([
             'name' => $request->name,
             'year' => $request->year,
             'url' => $path,
-            'duration' => $seconds,
+            'duration' => FFMpeg::open($request->file('file'))->getDurationInSeconds(),
         ]);
 
         return back();
