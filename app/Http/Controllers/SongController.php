@@ -90,6 +90,6 @@ class SongController extends Controller
     {
         $song->delete();
 
-        return to_route('songs');
+        return back();
     }
 }

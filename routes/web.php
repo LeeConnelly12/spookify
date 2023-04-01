@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistSongController;
 
 /*
@@ -58,7 +59,7 @@ Route::delete('/playlists/{playlist}/songs', [PlaylistSongController::class, 'de
     ->middleware('auth');
 
 // Songs
-Route::get('/songs', [SongController::class, 'index'])
+Route::get('/', [SongController::class, 'index'])
     ->name('songs');
 
 Route::get('/songs/{song}', [SongController::class, 'show'])
@@ -76,14 +77,17 @@ Route::delete('/songs/{song}', [SongController::class, 'destroy'])
     ->name('songs.destroy')
     ->can('delete', 'song');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/songs', [LikedSongController::class, 'index'])
+    ->name('liked-songs')
+    ->middleware('auth');
+
+Route::put('/songs/{song}/like', [LikedSongController::class, 'update'])
+    ->name('liked-songs.update')
+    ->middleware('auth');
+
+Route::delete('/songs/{song}/unlike', [LikedSongController::class, 'destroy'])
+    ->name('liked-songs.destroy')
+    ->middleware('auth');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

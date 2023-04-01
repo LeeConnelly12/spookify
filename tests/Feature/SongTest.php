@@ -2,15 +2,14 @@
 
 use App\Models\Song;
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
-use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, get};
+use function Pest\Laravel\{actingAs, assertDatabaseMissing, get};
 
 it('can all be viewed', function () {
     $songs = Song::factory()->count(3)->create();
 
-    get('/songs')
+    get('/')
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page
             ->component('Songs/Index')
@@ -71,7 +70,7 @@ it('can be deleted by the artist that created the song', function () {
 
     actingAs($artist)
         ->delete('/songs/'.$song->id)
-        ->assertRedirect('/songs');
+        ->assertRedirect();
 
     assertDatabaseMissing(Song::class, [
         'id' => $song->id,
