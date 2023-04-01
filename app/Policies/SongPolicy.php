@@ -8,14 +8,6 @@ use App\Models\User;
 class SongPolicy
 {
     /**
-     * Determine if the given user can create songs.
-     */
-    public function create(User $user): bool
-    {
-        return $user->hasRole('artist');
-    }
-
-    /**
      * Determine if the given song can be updated by the user.
      */
     public function update(User $user, Song $song): bool

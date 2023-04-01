@@ -66,7 +66,7 @@ Route::get('/songs/{song}', [SongController::class, 'show'])
 
 Route::post('/songs', [SongController::class, 'store'])
     ->name('songs.store')
-    ->can('create', Song::class);
+    ->middleware('role:artist');
 
 Route::put('/songs/{song}', [SongController::class, 'update'])
     ->name('songs.update')
