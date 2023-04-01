@@ -20,6 +20,7 @@ class SongResource extends JsonResource
             'name' => $this->name,
             'year' => $this->year,
             'url' => Storage::url($this->url),
+            'artist' => new UserResource($this->whenLoaded('user')),
             $this->mergeWhen($request->user(), function () use ($request) {
                 return [
                     'liked' => $request->user()->likedSongs->contains($this->resource),

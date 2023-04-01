@@ -16,7 +16,9 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = Song::query()->get();
+        $songs = Song::query()
+            ->with('user')
+            ->get();
 
         return inertia('Songs/Index', [
             'songs' => SongResource::collection($songs),
