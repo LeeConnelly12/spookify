@@ -43,7 +43,7 @@ class Song extends Model implements HasMedia
 
         $this
             ->addMediaConversion('small')
-            ->fit(Manipulations::FIT_CROP, 40, 40)
+            ->fit(Manipulations::FIT_CROP, 65, 65)
             ->format('webp')
             ->nonQueued();
     }

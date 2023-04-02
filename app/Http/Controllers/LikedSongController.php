@@ -13,7 +13,9 @@ class LikedSongController extends Controller
      */
     public function index(Request $request)
     {
-        $songs = $request->user()->likedSongs()->get();
+        $songs = $request->user()->likedSongs()
+            ->with('user')
+            ->get();
 
         return inertia('Songs/Liked/Index', [
             'songs' => SongResource::collection($songs)
