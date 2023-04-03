@@ -11,7 +11,7 @@ function play(song) {
 </script>
 
 <template>
-  <div class="px-4 pt-16">
+  <div class="px-4 pt-16 bg-gradient-to-b from-[#202E6D] to-[#121212] from-5% to-20% bg-no-repeat">
     <h1 class="text-2xl font-bold">Liked Songs</h1>
     <p class="mt-1 text-sm text-gray-400">{{ songs.length }} songs</p>
     <button class="grid w-12 h-12 mt-1 ml-auto bg-green-500 rounded-full place-items-center" type="button">
