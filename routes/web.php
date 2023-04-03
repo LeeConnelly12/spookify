@@ -60,7 +60,7 @@ Route::delete('/playlists/{playlist}/songs', [PlaylistSongController::class, 'de
 
 // Songs
 Route::get('/', [SongController::class, 'index'])
-    ->name('songs');
+    ->name('home');
 
 Route::get('/songs/create', [SongController::class, 'create'])
     ->name('songs.create')
@@ -86,7 +86,7 @@ Route::delete('/songs/{song}', [SongController::class, 'destroy'])
     ->can('update', 'song');
 
 Route::get('/songs', [LikedSongController::class, 'index'])
-    ->name('liked-songs')
+    ->name('songs')
     ->middleware('auth');
 
 Route::put('/songs/{song}/like', [LikedSongController::class, 'update'])
