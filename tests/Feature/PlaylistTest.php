@@ -37,13 +37,13 @@ it('has create form', function () {
 });
 
 it('can be created', function () {
-    post('/playlists', [
-        'name' => 'A new playlist',
-    ])
-    ->assertRedirect();
+    post('/playlists')
+        ->assertRedirect();
+
+    $count = $this->user->playlists()->count();
 
     assertDatabaseHas(Playlist::class, [
-        'name' => 'A new playlist',
+        'name' => 'My Playlist #'.$count,
     ]);
 });
 

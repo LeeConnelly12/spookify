@@ -33,14 +33,12 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:25'],
-        ]);
+        $count = $request->user()->playlists()->count() + 1;
 
         $playlist = $request->user()
             ->playlists()
             ->create([
-                'name' => $request->name,
+                'name' => 'My Playlist #'.$count,
             ]);
 
         return to_route('playlists.show', $playlist);

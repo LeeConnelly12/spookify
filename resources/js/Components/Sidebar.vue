@@ -1,5 +1,9 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+const user = computed(() => usePage().props.auth.user)
 </script>
 
 <template>
@@ -27,8 +31,20 @@ import { Link } from '@inertiajs/vue3'
         </Link>
       </div>
       <div class="mt-6">
-        <Link href="/playlists/create" class="flex h-10 items-center opacity-70 transition-opacity duration-300 hover:opacity-100">Create Playlist</Link>
+        <Link href="/playlists" method="post" as="button" type="button" class="flex h-10 w-full items-center gap-4 opacity-70 transition-opacity duration-300 hover:opacity-100">
+          <div class="grid h-6 w-6 place-items-center rounded-sm bg-white">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" class="h-4 w-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </div>
+          Create Playlist
+        </Link>
         <Link href="/songs" :class="route().current('songs') ? 'opacity-100' : 'opacity-70'" class="flex h-10 items-center transition-opacity duration-300 hover:opacity-100">Liked Songs</Link>
+      </div>
+      <div v-if="user.playlists.length > 0" class="mt-2 border-t border-t-[#282828] pt-1">
+        <Link v-for="playlist in user.playlists" :key="playlist.id" :href="route('playlists.show', playlist)" :class="route().current('playlists.show', playlist) ? 'opacity-100' : 'opacity-70'" class="flex h-10 w-full items-center transition-opacity duration-300 hover:opacity-100">
+          {{ playlist.name }}
+        </Link>
       </div>
     </nav>
   </aside>

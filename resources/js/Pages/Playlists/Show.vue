@@ -1,3 +1,9 @@
+<script setup>
+import Layout from '@/Layouts/AuthenticatedLayout.vue'
+</script>
+
 <template>
-  <div>playlist page</div>
+  <Layout>
+    <div>playlist page</div>
+  </Layout>
 </template>
