@@ -31,7 +31,7 @@ const user = computed(() => usePage().props.auth.user)
         </Link>
       </div>
       <div class="mt-6 font-bold">
-        <Link href="/playlists" method="post" as="button" type="button" class="flex items-center w-full h-10 gap-4 transition-opacity duration-300 opacity-70 hover:opacity-100">
+        <Link href="/playlists" method="post" as="button" class="flex items-center w-full h-10 gap-4 transition-opacity duration-300 opacity-70 hover:opacity-100">
           <div class="grid w-6 h-6 bg-white rounded-sm place-items-center">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" class="w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
