@@ -47,7 +47,7 @@ const user = computed(() => usePage().props.auth.user)
           Liked Songs
         </Link>
       </div>
-      <div v-if="user.playlists.length > 0" class="mt-2 border-t border-t-[#282828] pt-2">
+      <div v-if="user?.playlists?.length > 0" class="mt-2 border-t border-t-[#282828] pt-2">
         <Link v-for="playlist in user.playlists" :key="playlist.id" :href="route('playlists.show', playlist)" :class="route().current('playlists.show', playlist) ? 'opacity-100' : 'opacity-70'" class="flex items-center w-full h-8 transition-opacity duration-300 hover:opacity-100">
           {{ playlist.name }}
         </Link>

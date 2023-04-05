@@ -31,7 +31,7 @@ function closeModal() {
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </button>
-        <button @click="menu = !menu" type="button" class="relative flex items-center h-8 col-start-4 gap-2 pr-2 leading-none bg-black rounded-full">
+        <button v-if="user" @click="menu = !menu" type="button" class="relative flex items-center h-8 col-start-4 gap-2 pr-2 leading-none bg-black rounded-full">
           <div class="rounded-full border-2 border-black bg-[#535353] p-[2px]">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -56,6 +56,10 @@ function closeModal() {
             </li>
           </ul>
         </button>
+        <div class="flex col-start-4 gap-8" v-else>
+            <Link href="/register">Sign up</Link>
+            <Link href="/login">Log in</Link>
+        </div>
       </div>
       <slot />
     </main>
