@@ -93,7 +93,7 @@ it('can be deleted', function () {
     $playlist = Playlist::factory()->create();
 
     delete('/playlists/'.$playlist->id)
-        ->assertNoContent();
+        ->assertRedirect('/');
 
     assertDatabaseMissing(Playlist::class, [
         'id' => $playlist->id,

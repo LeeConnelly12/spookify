@@ -49,7 +49,7 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
-        $playlist->load('songs');
+        $playlist->load('user', 'songs');
 
         return inertia('Playlists/Show', [
             'playlist' => new PlaylistResource($playlist),
@@ -89,6 +89,6 @@ class PlaylistController extends Controller
     {
         $playlist->delete();
 
-        return response()->noContent();
+        return to_route('home');
     }
 }
