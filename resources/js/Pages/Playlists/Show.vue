@@ -18,7 +18,7 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
 <template>
   <Layout>
     <div class="flex items-end gap-6 pt-10">
-      <div class="grid h-48 w-48 flex-shrink-0 place-items-center bg-gray-500 text-gray-600 shadow-md xl:h-60 xl:w-60">
+      <div class="grid h-48 w-48 flex-shrink-0 place-items-center bg-gray-500 text-gray-600 shadow-md xl:h-[14.5rem] xl:w-[14.5rem]">
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-14 w-14">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
         </svg>
@@ -29,16 +29,23 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
         <p class="mt-4 xl:mt-6">{{ playlist.user.name }}</p>
       </div>
     </div>
-    <button @click="menu = !menu" ref="ignoreOptions" type="button" class="relative pt-4">
-      <svg viewBox="0 0 20 20" fill="currentColor" class="h-8 w-8 text-gray-600 hover:text-white">
-        <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
-      </svg>
-      <ul v-if="menu" v-on-click-outside="closeModal" class="absolute left-0 top-full mt-2 grid justify-start rounded-md bg-gray-500 p-1 text-left text-sm shadow-md">
-        <li>
-          <Link :href="route('playlists.destroy', playlist)" method="delete" as="button" class="flex h-10 w-48 items-center px-3 hover:bg-gray-400">Delete</Link>
-        </li>
-      </ul>
-    </button>
+    <div class="mt-6 flex items-center gap-8">
+      <button type="button" class="grid h-14 w-14 transform place-items-center rounded-full bg-green-500 hover:scale-105 hover:bg-green-400">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-7 w-7 text-black">
+          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+        </svg>
+      </button>
+      <button @click="menu = !menu" ref="ignoreOptions" type="button" class="relative">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-8 w-8 text-gray-600 hover:text-white">
+          <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+        </svg>
+        <ul v-if="menu" v-on-click-outside="closeModal" class="absolute left-0 top-full mt-2 grid justify-start rounded-md bg-gray-500 p-1 text-left text-sm shadow-md">
+          <li>
+            <Link :href="route('playlists.destroy', playlist)" method="delete" as="button" class="flex h-10 w-48 items-center px-3 hover:bg-gray-400">Delete</Link>
+          </li>
+        </ul>
+      </button>
+    </div>
 
     <table class="mt-4 w-full text-left text-gray-300">
       <thead class="border-b border-white border-opacity-10 text-sm">
@@ -55,9 +62,9 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
         </tr>
       </thead>
       <tbody>
-        <tr v-for="song in playlist.songs">
+        <tr v-for="(song, index) in playlist.songs" class="bg-gray-100 bg-opacity-0 hover:bg-opacity-10">
           <th scope="row" class="whitespace-nowrap py-4 pl-6 font-medium">
-            {{ song.id }}
+            {{ index + 1 }}
           </th>
           <td class="py-4 pl-2 pr-6">
             <p class="text-white">{{ song.name }}</p>
