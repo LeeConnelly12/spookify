@@ -11,6 +11,7 @@ use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistSongController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AlbumSongController;
+use App\Http\Controllers\PlaylistImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,10 @@ Route::post('/playlists/{playlist}/songs', [PlaylistSongController::class, 'stor
 
 Route::delete('/playlists/{playlist}/songs', [PlaylistSongController::class, 'destroy'])
     ->name('playlists.songs.destroy')
+    ->middleware('auth');
+
+Route::post('/playlists/{playlist}/images', [PlaylistImageController::class, 'store'])
+    ->name('playlists.images.store')
     ->middleware('auth');
 
 // Songs

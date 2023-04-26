@@ -17,6 +17,7 @@ class PlaylistResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->getFirstMediaUrl('image', 'medium'),
             'user' => new UserResource($this->whenLoaded('user')),
             'songs' => SongResource::collection($this->whenLoaded('songs')),
         ];
