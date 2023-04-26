@@ -17,7 +17,7 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreButton] }]
 </script>
 
 <template>
-  <div class="grid min-h-screen grid-cols-[auto,1fr] grid-rows-[1fr,auto] pb-24">
+  <div class="grid min-h-screen grid-cols-[auto,1fr] pb-24">
     <Sidebar />
     <main class="bg-gradient-to-b from-[#222] to-[#121212] px-8 py-4">
       <div class="grid grid-cols-[max-content,max-content,1fr,max-content] items-center gap-4">
@@ -67,6 +67,6 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreButton] }]
       </div>
       <slot />
     </main>
-    <Player class="col-span-full" />
+    <Player />
   </div>
 </template>
