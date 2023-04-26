@@ -21,9 +21,10 @@ class SongResource extends JsonResource
             'year' => $this->year,
             'url' => $this->getFirstMediaUrl('file'),
             'artist' => new UserResource($this->whenLoaded('user')),
+            'album' => new AlbumResource($this->whenLoaded('album')),
             'small_image' => $this->getFirstMediaUrl('image', 'small'),
             'medium_image' => $this->getFirstMediaUrl('image', 'medium'),
-            'duration' => '2:56',
+            'duration' => $this->formattedDuration(),
             $this->mergeWhen($request->user(), function () use ($request) {
                 return [
                     'liked' => $request->user()->likedSongs->contains($this->resource),

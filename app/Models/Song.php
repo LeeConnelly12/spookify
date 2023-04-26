@@ -22,6 +22,22 @@ class Song extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the album that owns the song.
+     */
+    public function album(): BelongsTo
+    {
+        return $this->belongsTo(Album::class);
+    }
+
+    /**
+     * Get the song's duration.
+     */
+    public function formattedDuration(): string
+    {
+        return str($this->duration / 100)->replace('.', ':');
+    }
+
     public function registerMediaCollections(): void
     {
         $this

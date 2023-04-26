@@ -9,6 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistSongController;
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AlbumSongController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,14 @@ Route::put('/songs/{song}/like', [LikedSongController::class, 'update'])
 
 Route::delete('/songs/{song}/unlike', [LikedSongController::class, 'destroy'])
     ->name('liked-songs.destroy')
+    ->middleware('auth');
+
+// Albums
+Route::get('/albums/{album}', [AlbumController::class, 'show'])
+    ->name('albums.show');
+
+Route::post('/albums/{album}/songs', [AlbumSongController::class, 'store'])
+    ->name('albums.songs.store')
     ->middleware('auth');
 
 Route::middleware('auth')->group(function () {

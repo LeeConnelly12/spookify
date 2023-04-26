@@ -63,7 +63,9 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
             <p class="text-white">{{ song.name }}</p>
             <p class="text-sm">{{ song.artist.name }}</p>
           </td>
-          <td class="px-6 py-4 text-sm">Rebola</td>
+          <td class="line-clamp-1 px-6 py-4 text-sm">
+            <Link :href="route('albums.show', song.album)">{{ song.album.name }}</Link>
+          </td>
           <td class="px-6 py-4 text-sm">3 days ago</td>
           <td class="px-6 py-4 text-sm">{{ song.duration }}</td>
         </tr>
