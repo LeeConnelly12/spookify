@@ -35,7 +35,8 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreButton] }]
 
         <!-- Profile dropdown -->
         <button v-if="user" @click="menu = !menu" ref="ignoreButton" type="button" class="relative col-start-4 flex h-8 items-center gap-2 rounded-full bg-black pr-2 leading-none">
-          <div class="rounded-full border-2 border-black bg-[#535353] p-[2px]">
+          <img v-if="user.profile_picture" :src="user.profile_picture" :alt="user.name" class="rounded-full border-2 border-black" width="28" height="28" />
+          <div v-else class="rounded-full border-2 border-black bg-[#535353] p-[2px]">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
@@ -61,6 +62,7 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreButton] }]
         </button>
 
         <div class="col-start-4 flex gap-8" v-else>
+          <Link href="/auth/redirect">Discord</Link>
           <Link href="/register">Sign up</Link>
           <Link href="/login">Log in</Link>
         </div>

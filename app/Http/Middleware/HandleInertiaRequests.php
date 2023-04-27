@@ -30,10 +30,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
         return array_merge(parent::share($request), [
             'auth.user' => fn () => $request->user() ?
                 [
-                    ...$request->user()->only('id', 'name', 'email'),
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'profile_picture'=> $user->getFirstMediaUrl('profile_picture', 'medium'),
                     'playlists' => $request->user()->playlists()
                         ->select('user_id', 'id', 'name')
                         ->get(),

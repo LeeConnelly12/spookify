@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\SongController;
 use App\Models\Song;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\SongController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\AlbumSongController;
 use App\Http\Controllers\LikedSongController;
 use App\Http\Controllers\PlaylistSongController;
-use App\Http\Controllers\AlbumController;
-use App\Http\Controllers\AlbumSongController;
 use App\Http\Controllers\PlaylistImageController;
 
 /*
@@ -23,6 +25,33 @@ use App\Http\Controllers\PlaylistImageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/auth/redirect', function () {
+    // return Socialite::driver('discord')->redirect();
+
+    $redirectUrl = Socialite::driver('discord')->redirect()->getTargetUrl();
+    return response('', 409)->header('X-Inertia-Location', $redirectUrl);
+});
+
+Route::get('/auth/callback', function () {
+    $discordUser = Socialite::driver('discord')->user();
+
+    $user = User::updateOrCreate([
+        'discord_id' => $discordUser->getId(),
+    ], [
+        'name' => $discordUser->getName(),
+        'email' => $discordUser->getEmail(),
+        'password' => bcrypt(Str::password()),
+    ]);
+
+    $user
+        ->addMediaFromUrl($discordUser->avatar)
+        ->toMediaCollection('profile_picture');
+
+    Auth::login($user);
+
+    return to_route('home');
+});
 
 // Playlists
 Route::get('/playlists', [PlaylistController::class, 'index'])
