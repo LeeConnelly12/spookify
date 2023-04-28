@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Song;
+use App\Http\Controllers\ProfileController;
 use App\Models\User;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
@@ -151,5 +149,9 @@ Route::middleware('auth')->group(function () {
 // Users
 Route::get('/users/{user:name}', [UserController::class, 'show'])
     ->name('users.show');
+
+Route::put('/profile', [ProfileController::class, 'update'])
+    ->name('profile')
+    ->middleware('auth');
 
 require __DIR__ . '/auth.php';

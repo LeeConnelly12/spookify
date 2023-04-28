@@ -1,9 +1,16 @@
 <script setup>
 import Layout from '@/Layouts/AuthenticatedLayout.vue'
 import { usePage } from '@inertiajs/vue3'
+import { ref } from 'vue'
 import { computed } from 'vue'
 
 const user = computed(() => usePage().props.auth.user)
+
+const menu = ref(false)
+
+const ignoreOptions = ref(null)
+
+const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
 </script>
 
 <template>
@@ -32,5 +39,18 @@ const user = computed(() => usePage().props.auth.user)
         </div>
       </div>
     </header>
+
+    <div class="mt-6 flex items-center gap-8">
+      <button @click="menu = !menu" ref="ignoreOptions" type="button" class="relative">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-8 w-8 text-gray-600 hover:text-white">
+          <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+        </svg>
+        <ul v-if="menu" v-on-click-outside="closeModal" class="absolute left-0 top-full mt-2 grid justify-start rounded-md bg-gray-500 p-1 text-left text-sm shadow-md">
+          <li>
+            <Link :href="route('profile')" class="flex h-10 w-48 items-center px-3 hover:bg-gray-400">Edit Profile</Link>
+          </li>
+        </ul>
+      </button>
+    </div>
   </Layout>
 </template>
