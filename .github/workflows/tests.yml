@@ -81,7 +81,7 @@ jobs:
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install NPM packages
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
-        run: npm i
+        run: npm ci
       - name: Build frontend
         run: npm run build
 
@@ -112,7 +112,7 @@ jobs:
           DB_PORT: 33306
           DB_USER: root
 
-        run: php artisan test --parallel
+        run: php artisan test --parallel --stop-on-failure
 
       - name: Deploy
         uses: jbrooksuk/laravel-forge-action@v1.0.2
