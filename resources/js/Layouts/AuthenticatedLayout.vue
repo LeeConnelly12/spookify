@@ -53,9 +53,6 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreButton] }]
               <Link href="/profile" class="flex h-10 w-48 items-center px-3 hover:bg-gray-400">Profile</Link>
             </li>
             <li>
-              <Link href="/settings" class="flex h-10 w-48 items-center border-b border-b-white border-opacity-10 px-3 hover:bg-gray-400">Settings</Link>
-            </li>
-            <li>
               <Link href="/logout" method="post" as="button" class="flex h-10 w-48 items-center px-3 hover:bg-gray-400">Log out</Link>
             </li>
           </ul>

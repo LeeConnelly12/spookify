@@ -8,7 +8,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\SongController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\AlbumController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\AlbumSongController;
 use App\Http\Controllers\LikedSongController;
@@ -39,10 +39,10 @@ Route::get('/auth/callback', function () {
     $user = User::updateOrCreate([
         'discord_id' => $discordUser->getId(),
     ], [
-        'name' => $discordUser->getName(),
-        'email' => $discordUser->getEmail(),
-        'password' => bcrypt(Str::password()),
-    ]);
+            'name' => $discordUser->getName(),
+            'email' => $discordUser->getEmail(),
+            'password' => bcrypt(Str::password()),
+        ]);
 
     $user
         ->addMediaFromUrl($discordUser->avatar)
@@ -142,9 +142,9 @@ Route::post('/albums/{album}/songs', [AlbumSongController::class, 'store'])
     ->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
+    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
