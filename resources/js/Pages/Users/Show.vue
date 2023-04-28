@@ -35,7 +35,7 @@ const closeModal = [() => (menu.value = false), { ignore: [ignoreOptions] }]
         <p class="text-sm font-bold">Profile</p>
         <h1 class="mt-2 text-2xl font-bold md:text-4xl xl:mt-4 xl:text-8xl">{{ user.name }}</h1>
         <div class="mt-4 flex items-center gap-2 text-sm xl:mt-10">
-          <p v-if="user.playlists.length">{{ user.playlists.length }} Public Playlist {{ user.playlists.length > 1 ? 's' : '' }}</p>
+          <p v-if="user.playlists.length">{{ user.playlists.length }} Public Playlist{{ user.playlists.length > 1 ? 's' : '' }}</p>
         </div>
       </div>
     </header>
