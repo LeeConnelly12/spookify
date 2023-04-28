@@ -99,11 +99,6 @@ jobs:
 
         run: php artisan migrate
 
-      - name: Show dir
-        run: pwd
-      - name: PHP Version
-        run: php --version
-
       - name: Execute tests (Unit and Feature tests) via PestPHP
 
         env:
