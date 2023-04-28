@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{c as o,o as c}from"./app-c85f3cc2.js";const r={};function t(n,a){return c(),o("div",null,"albums page")}const f=e(r,[["render",t]]);export{f as default};

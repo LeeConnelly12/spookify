@@ -1,1 +1,0 @@
-import{c as s,d as e,F as o,o as a}from"./app-c85f3cc2.js";const n=e("div",null,"song page",-1),c=["src"],i={__name:"Show",props:{song:Object},setup(t){return(r,l)=>(a(),s(o,null,[n,e("img",{src:t.song.medium_image,alt:"",width:"232",height:"232"},null,8,c)],64))}};export{i as default};

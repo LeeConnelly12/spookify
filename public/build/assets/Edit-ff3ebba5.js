@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{c as o,o as t}from"./app-c85f3cc2.js";const c={};function r(n,s){return t(),o("div",null,"edit song page")}const f=e(c,[["render",r]]);export{f as default};
