@@ -1,0 +1,1 @@
+import{_ as s}from"./AuthenticatedLayout-9f03412b.js";import{a,w as e,o,d as t}from"./app-c85f3cc2.js";import"./_plugin-vue_export-helper-c27b6911.js";const r=t("h1",null,"songs page",-1),i={__name:"Index",props:{songs:Array},setup(_){return(n,c)=>(o(),a(s,null,{default:e(()=>[r]),_:1}))}};export{i as default};

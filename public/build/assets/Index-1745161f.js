@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{c,o}from"./app-c85f3cc2.js";const r={};function t(n,s){return o(),c("div",null,"playlists page")}const l=e(r,[["render",t]]);export{l as default};
