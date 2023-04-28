@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AccountController;
@@ -146,5 +147,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 });
+
+// Users
+Route::get('/users/{user:name}', [UserController::class, 'show'])
+    ->name('users.show');
 
 require __DIR__ . '/auth.php';

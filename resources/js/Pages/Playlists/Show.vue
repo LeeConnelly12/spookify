@@ -28,7 +28,7 @@ async function submit(event) {
 
 <template>
   <Layout>
-    <div class="flex items-end gap-6 pt-10">
+    <header class="mt-10 flex items-end gap-6">
       <div class="group relative grid h-48 w-48 flex-shrink-0 place-items-center bg-gray-500 text-gray-600 shadow-md xl:h-[14.5rem] xl:w-[14.5rem]">
         <img v-if="playlist.image" :src="playlist.image" alt="" />
         <svg v-else fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-14 w-14">
@@ -45,11 +45,11 @@ async function submit(event) {
         <input type="file" @input="submit" class="hidden" id="playlistImage" />
       </div>
       <div class="font-bold">
-        <p>Playlist</p>
-        <h1 class="mt-2 text-2xl md:text-4xl xl:mt-4 xl:text-8xl">{{ playlist.name }}</h1>
-        <p class="mt-4 xl:mt-6">{{ playlist.user.name }}</p>
+        <p class="text-sm">Playlist</p>
+        <h1 class="mt-2 text-2xl font-bold md:text-4xl xl:mt-4 xl:text-8xl">{{ playlist.name }}</h1>
+        <Link :href="route('users.show', playlist.user)" class="mt-4 inline-block text-sm hover:underline xl:mt-10">{{ playlist.user.name }}</Link>
       </div>
-    </div>
+    </header>
     <div class="mt-6 flex items-center gap-8">
       <button type="button" class="grid h-14 w-14 transform place-items-center rounded-full bg-green-500 hover:scale-105 hover:bg-green-400">
         <svg viewBox="0 0 20 20" fill="currentColor" class="h-7 w-7 text-black">

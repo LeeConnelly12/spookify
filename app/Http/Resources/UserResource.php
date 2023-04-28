@@ -16,6 +16,8 @@ class UserResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'editable' => $request->user()?->can('update', $this->resource),
+            'playlists' => PlaylistResource::collection($this->whenLoaded('playlists')),
         ];
     }
 }
