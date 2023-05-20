@@ -17,7 +17,7 @@ class SongController extends Controller
     public function index()
     {
         $songs = Song::query()
-            ->with('user')
+            ->with('user', 'media')
             ->get();
 
         return inertia('Songs/Index', [
