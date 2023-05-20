@@ -28,7 +28,9 @@ class Playlist extends Model implements HasMedia
      */
     public function songs(): BelongsToMany
     {
-        return $this->belongsToMany(Song::class);
+        return $this->belongsToMany(Song::class)
+            ->withTimestamps()
+            ->withPivot('created_at');
     }
 
     public function registerMediaCollections(): void
