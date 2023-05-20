@@ -32,7 +32,7 @@ async function unlike(song) {
     <td class="line-clamp-1 flex h-16 items-center px-6 text-sm">
       <Link :href="route('albums.show', song.album)">{{ song.album.name }}</Link>
     </td>
-    <td class="h-16 px-6 text-sm">3 days ago</td>
+    <td class="h-16 px-6 text-sm">{{ song.added }}</td>
     <td class="relative flex h-16 items-center px-6 text-sm">
       <button @click="!song.liked ? like(song) : unlike(song)" type="button" class="absolute -left-5 group-hover:block" :class="song.liked ? '' : 'hidden'">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" class="h-6 w-6" :class="song.liked ? 'fill-green-500' : 'stroke-white'">

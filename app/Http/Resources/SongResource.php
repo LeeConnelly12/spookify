@@ -30,6 +30,9 @@ class SongResource extends JsonResource
                     'liked' => $request->user()->likedSongs->contains($this->resource),
                 ];
             }),
+            'added' => $this->whenPivotLoaded('playlist_song', function () {
+                return $this->pivot->created_at->diffForHumans();
+            }),
         ];
     }
 }
