@@ -47,9 +47,17 @@ class PlaylistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Playlist $playlist)
+    public function show(Request $request, Playlist $playlist)
     {
-        $playlist->load('user', 'songs.user', 'songs.album');
+        $playlist->load([
+            'user',
+            'songs.user',
+            'songs.media',
+            'songs.album',
+            'songs.likedByUsers' => function ($query) use ($request)  {
+                $query->where('user_id', $request->user()->id);
+            }
+        ]);
 
         return inertia('Playlists/Show', [
             'playlist' => new PlaylistResource($playlist),

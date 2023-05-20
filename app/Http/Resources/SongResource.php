@@ -24,11 +24,9 @@ class SongResource extends JsonResource
             'album' => new AlbumResource($this->whenLoaded('album')),
             'small_image' => $this->getFirstMediaUrl('image', 'small'),
             'medium_image' => $this->getFirstMediaUrl('image', 'medium'),
-            'duration' => $this->formattedDuration(),
-            $this->mergeWhen($request->user(), function () use ($request) {
-                return [
-                    'liked' => $request->user()->likedSongs->contains($this->resource),
-                ];
+            'duration' => $this->duration,
+            'liked' => $this->whenLoaded('likedByUsers', function () {
+                return $this->likedByUsers->isNotEmpty();
             }),
             'added' => $this->whenPivotLoaded('playlist_song', function () {
                 return $this->pivot->created_at->diffForHumans();

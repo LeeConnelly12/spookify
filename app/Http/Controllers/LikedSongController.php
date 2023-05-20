@@ -13,8 +13,8 @@ class LikedSongController extends Controller
      */
     public function index(Request $request)
     {
-        $songs = $request->user()->likedSongs()
-            ->with('user')
+        $songs = $request->user()->likes()
+            ->with('likedByUsers', 'user', 'media', 'album')
             ->get();
 
         return inertia('Songs/Liked/Index', [

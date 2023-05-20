@@ -33,6 +33,14 @@ class Song extends Model implements HasMedia
     }
 
     /**
+     * The users that liked this song.
+     */
+    public function likedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'song_user');
+    }
+
+    /**
      * Interact with the song's duration.
      */
     protected function duration(): Attribute
