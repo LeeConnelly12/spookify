@@ -1,26 +1,35 @@
 <script setup>
-import Song from '@/Components/Song.vue'
+import Layout from '@/Layouts/AuthenticatedLayout.vue'
+import { computed } from 'vue'
+import { usePage, Link } from '@inertiajs/vue3'
+import SongsTable from '@/Components/SongsTable.vue'
 
 defineProps({
   songs: Array,
 })
 
-function play(song) {
-    console.log('playing song')
-}
+const user = computed(() => usePage().props.auth.user)
 </script>
 
 <template>
-  <div class="px-4 pt-16 bg-gradient-to-b from-[#202E6D] to-[#121212] from-5% to-20% bg-no-repeat">
-    <h1 class="text-2xl font-bold">Liked Songs</h1>
-    <p class="mt-1 text-sm text-gray-400">{{ songs.length }} songs</p>
-    <button class="grid w-12 h-12 mt-1 ml-auto bg-green-500 rounded-full place-items-center" type="button">
-      <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" class="w-7 h-7 fill-[#121212]">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-      </svg>
-    </button>
-  </div>
-  <ul class="grid gap-2 px-2 mt-4">
-    <Song v-for="song in songs" @play="play(song)" :key="song.id" :song="song" />
-  </ul>
+  <Layout>
+    <header class="mt-10 flex items-end gap-6">
+      <div class="group relative grid h-48 w-48 flex-shrink-0 place-items-center bg-gray-500 text-gray-600 shadow-md xl:h-[14.5rem] xl:w-[14.5rem]">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="h-20 w-20">
+          <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-sm font-bold">Playlist</p>
+        <h1 class="mt-2 text-2xl font-bold md:text-4xl xl:mt-4 xl:text-8xl">Liked Songs</h1>
+        <div class="mt-4 flex items-center gap-2 xl:mt-10">
+          <Link :href="route('users.show', user)" class="inline-block text-sm font-bold hover:underline">{{ user.name }}</Link>
+          <div v-if="songs.length" class="h-1 w-1 rounded-full bg-white"></div>
+          <p v-if="songs.length">{{ songs.length }} song{{ songs.length > 1 ? 's' : '' }}</p>
+        </div>
+      </div>
+    </header>
+
+    <SongsTable :songs="songs" />
+  </Layout>
 </template>
