@@ -27,7 +27,7 @@ class LikedSongController extends Controller
      */
     public function update(Request $request, Song $song)
     {
-        $request->user()->likedSongs()->attach($song);
+        $request->user()->likes()->attach($song);
 
         return response()->noContent();
     }
@@ -37,7 +37,7 @@ class LikedSongController extends Controller
      */
     public function destroy(Request $request, Song $song)
     {
-        $request->user()->likedSongs()->detach($song);
+        $request->user()->likes()->detach($song);
 
         return response()->noContent();
     }

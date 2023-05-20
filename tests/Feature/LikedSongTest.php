@@ -12,10 +12,10 @@ beforeEach(function () {
 });
 
 it('has liked songs page', function () {
-    $this->user->likedSongs()
+    $this->user->likes()
         ->attach(Song::factory()->count(3)->create());
 
-    $song = $this->user->likedSongs()->first();
+    $song = $this->user->likes()->first();
 
     get('/songs')
         ->assertOk()
@@ -39,12 +39,12 @@ it('can be liked', function () {
         ->put('/songs/'.$song->id.'/like')
         ->assertNoContent();
 
-    expect($this->user->likedSongs)->not->tobeEmpty();
+    expect($this->user->likes)->not->tobeEmpty();
 });
 
 it('can be unliked', function () {
-    $this->user->likedSongs()->attach(Song::factory()->create());
-    $song = $this->user->likedSongs->first();
+    $this->user->likes()->attach(Song::factory()->create());
+    $song = $this->user->likes->first();
 
     actingAs($this->user)
         ->delete('/songs/'.$song->id.'/unlike')
@@ -52,5 +52,5 @@ it('can be unliked', function () {
 
     $this->user->refresh();
 
-    expect($this->user->likedSongs)->tobeEmpty();
+    expect($this->user->likes)->tobeEmpty();
 });

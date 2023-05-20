@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     /**
      * The liked songs that belong to the user.
      */
-    public function likedSongs(): BelongsToMany
+    public function likes(): BelongsToMany
     {
         return $this->belongsToMany(Song::class);
     }
