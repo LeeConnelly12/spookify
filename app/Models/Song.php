@@ -6,9 +6,11 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Song extends Model implements HasMedia
 {
@@ -31,11 +33,21 @@ class Song extends Model implements HasMedia
     }
 
     /**
-     * Get the song's duration.
+     * Interact with the song's duration.
      */
-    public function formattedDuration(): string
+    protected function duration(): Attribute
     {
-        return str($this->duration / 100)->replace('.', ':');
+        return Attribute::make(
+            get: function (string $seconds) {
+                return $seconds;
+            },
+            set: function (string $seconds) {
+                $minutes = floor(($seconds / 60) % 60);
+                $seconds = $seconds % 60;
+                $seconds = $seconds < 10 ? '0'.$seconds : $seconds;
+                return $minutes.':'.$seconds;
+            },
+        );
     }
 
     public function registerMediaCollections(): void
